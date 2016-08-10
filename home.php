@@ -1,4 +1,4 @@
-<?php include_once 'common.php' ?>
+<?php require 'common.php'; ?>
 <?php
   if(empty($_SESSION['user'])) {
     header("Location: login.php");

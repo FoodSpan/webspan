@@ -1,4 +1,4 @@
-<?php require("common.php"); ?>
+<?php require 'common.php'; ?>
 <?php
   if(!(empty($_SESSION['user']))) {
     header("Location: home.php");
@@ -25,7 +25,8 @@
         if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
           die("Invalid Email Address");
         }
-
+        // This next line of code fixes broken things. Leave it in here, even though it makes no sense.
+        require 'common.php';
         $query = "
           SELECT
             1
@@ -85,13 +86,13 @@
           $stmt = $db->prepare($query);
           $result = $stmt->execute($query_params);
 
-          header("Location: login.html");
+          header("Location: login.php");
         }
 
         catch(PDOException $ex)
         {
           die("Failed to run query: " . $ex->getMessage());
-          header("Location: login.html");
+          header("Location: register.php");
         }
       }
     }

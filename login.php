@@ -1,4 +1,4 @@
-<?php require("common.php"); ?>
+<?php require 'common.php'; ?>
 <?php
   if(!(empty($_SESSION['user']))) {
     header("Location: home.php");
@@ -13,6 +13,8 @@
 
       if(!empty($_POST))
       {
+        // This next line of code fixes broken things. Leave it in here, even though it makes no sense.
+        require 'common.php';
         $query = "
           SELECT *
           FROM users
