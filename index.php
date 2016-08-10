@@ -1,3 +1,10 @@
+<?php include_once 'common.php' ?>
+<?php
+  if(!(empty($_SESSION['user']))) {
+    header("Location: home.php");
+		die("Redirecting to home.php");
+  }
+?>
 <!DOCTYPE html>
 <html>
   <?php include_once 'header.html' ?>

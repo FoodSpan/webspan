@@ -33,8 +33,13 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="#" class="btn btn-rose btn-raised btn-round">
+          <a href="register.php" class="btn btn-success btn-raised btn-round">
             Register
+          </a>
+        </li>
+        <li>
+          <a href="login.php" class="btn btn-rose btn-raised btn-round">
+            Login
           </a>
         </li>
       </ul>
