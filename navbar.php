@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fixed-top">
+<nav class="navbar navbar-rose navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-container" aria-expanded="false">
@@ -16,19 +16,16 @@
           <a href="#">About</a>
         </li>
         <li>
-          <a href="#">App</a>
+          <a href="http://matthewwang.me/foodspan/">FoodSpan</a>
         </li>
         <li>
-          <a href="#">Blog</a>
+          <a href="#">Mobile App</a>
         </li>
         <li>
-          <a href="#">Shop</a>
+          <a href="http://matthewwang.me/foodspan/shop/">Shop</a>
         </li>
         <li>
-          <a href="#">Team</a>
-        </li>
-        <li>
-          <a href="#">Contact Us</a>
+          <a href="http://matthewwang.me/foodspan/contact/">Contact Us</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -39,7 +36,7 @@
             </a>
           </li>
           <li>
-            <a href="login.php" class="btn btn-rose btn-raised btn-round">
+            <a href="login.php" class="btn btn-white btn-raised btn-round">
               Login
             </a>
           </li>

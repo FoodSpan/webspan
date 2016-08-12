@@ -113,7 +113,7 @@
 								</div>
 							</div>
 							<div class="footer text-center">
-								<button type="submit" class="btn btn-rose btn-round btn-lg">Get Started</button>
+								<button type="submit" class="btn btn-rose btn-round btn-lg">Open Your Fridge</button>
 							</div>
 						</form>
 					</div>
