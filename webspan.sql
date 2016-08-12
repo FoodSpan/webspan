@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `webspan`
 --
+CREATE DATABASE IF NOT EXISTS `webspan` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `webspan`;
 
 -- --------------------------------------------------------
 
@@ -28,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `panels` (
   `uid` int(11) NOT NULL,
-  `accountid` int(11) NOT NULL,
+  `accountid` int(11) DEFAULT NULL,
   `version` text NOT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
