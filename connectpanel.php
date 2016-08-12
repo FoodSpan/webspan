@@ -34,6 +34,10 @@
         {
           die("Failed to run query: " . $ex->getMessage());
         }
+
+        if (mysql_num_rows($result)==0){
+          die ("Control Panel ID not registered");
+        }
       }
 		}
   }
