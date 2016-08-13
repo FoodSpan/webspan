@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="navbar-container">
       <ul class="nav navbar-nav">
         <li>
-          <a href="#">About</a>
+          <a href="about.php">About</a>
         </li>
         <li>
           <a href="http://matthewwang.me/foodspan/">FoodSpan</a>
@@ -47,8 +47,8 @@
             </a>
           	<ul class="dropdown-menu dropdown-menu-right">
               <li><a href="home.php">Home</a></li>
-              <li><a href="#">Control Panels</a></li>
-              <li><a href="#">Tags</a></li>
+              <li><a href="panels.php">Control Panels</a></li>
+              <li><a href="tags.php">Tags</a></li>
               <li class="divider"></li>
               <li><a href="#">Settings</a></li>
               <li class="divider"></li>
