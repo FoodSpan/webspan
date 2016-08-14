@@ -1,12 +1,8 @@
 <?php require 'common.php'; ?>
-<?php
-  if(empty($_SESSION['user'])) {
-    header("Location: login.php");
-		die("Redirecting to login.php");
-  }
-?>
+
 <?php
 	function connectPanel(){
+
 		if (!(empty($_POST))){
 	    if (!(empty($_SESSION['user']))){
 
@@ -35,7 +31,7 @@
           die("Failed to run query: " . $ex->getMessage());
         }
 
-        if (mysql_num_rows($result)==0){
+        if ($stmt->rowCount() == 0){
           die ("Control Panel ID not registered");
         }
       }
