@@ -48,10 +48,12 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `controluid` int(11) NOT NULL,
   `state` text NOT NULL,
   `last_activation_date` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `description` text NOT NULL,
+  `name` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `category` text NOT NULL,
-  `ingredient` text NOT NULL,
+  `raw_cooked` tinyint(1) DEFAULT NULL,
+  `fridge_freezer` tinyint(1) DEFAULT 0,
+  `ingredient` text DEFAULT NULL,
   `expiry_date` int(11) NOT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

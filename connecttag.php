@@ -27,6 +27,8 @@
 
     $tag_data = json_decode($raw_data, true);
 
+    //die ($tag_data['raw_cooked'] . "");
+
     $query = "
       SELECT uid
       FROM tags
@@ -53,21 +55,19 @@
       ':controluid' => $tag_data['controluid'],
       ':state' => $tag_data['state'],
       ':last_activation_date' => time(),
-      ':category' => $tag_data['category']
-      //TODO add to webspan.SQL before implementing
-      //,':raw_cooked' => $_tag_data['raw_cooked'],
-      //':fridge_freezer' => $tag_data['fridge_freezer']
+      ':category' => $tag_data['category'],
+      ':raw_cooked' => $tag_data['raw_cooked'],
+      ':fridge_freezer' => $tag_data['fridge_freezer']
     );
 
     //no match, add tag as new entry
     if ($stmt->rowCount() == 0){
 
-      //TODO modify query to add raw_cooked & fridge_freezer
       $query = "
         INSERT INTO tags
-        (uid, pattern, controluid, state, last_activation_date, category)
+        (uid, pattern, controluid, state, last_activation_date, category, raw_cooked, fridge_freezer)
         VALUES
-        (:uid, :pattern, :controluid, :state, :last_activation_date, :category)
+        (:uid, :pattern, :controluid, :state, :last_activation_date, :category, :raw_cooked, :fridge_freezer)
       ";
 
       try
@@ -82,14 +82,15 @@
 
     } else {//found match, update existing tag information
 
-      //TODO modify query to add raw_cooked & fridge_freezer
       $query = "
         UPDATE tags
         SET pattern = :pattern,
           controluid = :controluid,
           state = :state,
           last_activation_date = :last_activation_date,
-          category = :category
+          category = :category,
+          raw_cooked = :raw_cooked,
+          fridge_freezer = :fridge_freezer
         WHERE uid = :uid
       ";
 
