@@ -13,13 +13,13 @@
     <div class="collapse navbar-collapse" id="navbar-container">
       <ul class="nav navbar-nav">
         <li>
-          <a href="about.php">About</a>
+          <a href="https://foodspan.github.io/foodspan-app/">About</a>
         </li>
         <li>
           <a href="http://matthewwang.me/foodspan/">FoodSpan</a>
         </li>
         <li>
-          <a href="#">Mobile App</a>
+          <a href="https://foodspan.github.io/foodspan-app/">Mobile App</a>
         </li>
         <li>
           <a href="http://matthewwang.me/foodspan/shop/">Shop</a>
