@@ -1,104 +1,5 @@
-<?php require 'common.php'; ?>
-<?php
-  if(!(empty($_SESSION['user']))) {
-    header("Location: home.php");
-		die("Redirecting to home.php");
-  }
-?>
-<?php
-  function register(){
-    if (isset($_GET['register'])){
-      if(!empty($_POST)) {
-        if( empty($_POST['email'])     ||
-          empty($_POST['password'])  ||
-          empty($_POST['password2']) ||
-          empty($_POST['name'])
+<?php require 'common.php';?>
 
-          ) {
-          die("You missed a field");
-        }
-
-        if($_POST['password'] != $_POST['password2']) {
-          die("Password Mismatch");
-        }
-
-        if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-          die("Invalid Email Address");
-        }
-        // This next line of code fixes broken things. Leave it in here, even though it makes no sense.
-        require 'common.php';
-        $query = "
-          SELECT
-            1
-          FROM users
-          WHERE
-            email = :email
-        ";
-
-        $query_params = array(
-          ':email' => $_POST['email']
-        );
-
-        try {
-          $stmt = $db->prepare($query);
-          $result = $stmt->execute($query_params);
-        }
-        catch(PDOException $ex) {
-          die("Failed to run query: " . $ex->getMessage());
-        }
-
-        $row = $stmt->fetch();
-
-        if($row) {
-          die("This email address is already registered");
-        }
-
-        $query = "
-          INSERT INTO users (
-            password,
-            salt,
-            email,
-            name
-          ) VALUES (
-            :password,
-            :salt,
-            :email,
-            :name
-          );
-        ";
-
-        $salt = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647));
-
-        $password = hash('sha256', $_POST['password'] . $salt);
-
-        for($round = 0; $round < 65536; $round++) {
-          $password = hash('sha256', $password . $salt);
-        }
-
-        $query_params = array(
-          ':password' => $password,
-          ':salt' => $salt,
-          ':email' => $_POST['email'],
-          ':name' => $_POST['name']
-        );
-
-        try {
-          $stmt = $db->prepare($query);
-          $result = $stmt->execute($query_params);
-
-          header("Location: login.php");
-        }
-
-        catch(PDOException $ex)
-        {
-          die("Failed to run query: " . $ex->getMessage());
-          header("Location: register.php");
-        }
-      }
-    }
-  }
-  register();
-?>
 <!DOCTYPE html>
 <html>
   <?php include_once 'header.html' ?>
@@ -107,7 +8,7 @@
     <div class="main main-raised" style="padding-top:100px;">
       <div class="container">
         <div class="card card-signup">
-						<form class="form" method="post" action="?register">
+						<form class="form" method="post" action="back_register.php?register">
 							<div class="header header-success text-center">
 								<h4 class="card-title">Register</h4>
                 <!--

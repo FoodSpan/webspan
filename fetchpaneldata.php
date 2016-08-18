@@ -1,21 +1,13 @@
 <?php require 'common.php'; ?>
 <?php
-  if(empty($_SESSION['user'])) {
-    header("Location: login.php");
-		die("Redirecting to login.php");
-  }
-?>
-<?php
-  function fetchTagData($is_endpoint, $eId){
+  function fetchPanelData($is_endpoint, $eId){
     if (!(empty($_SESSION['user']))){
 
       $query = "
-      select tags.*
-      FROM panels, tags
+      select panels.*
+      FROM panels
       WHERE accountid = :accountid
-      AND panels.uid = controluid
       ";
-      //TODO ADD STATE
 
       $query_params = array(
         ':accountid'=> $_SESSION['user']['id']
@@ -33,9 +25,9 @@
         die("Failed to run query: " . $ex->getMessage());
       }
 
-      $tag_data = $stmt->fetchAll();
+      $panel_data = $stmt->fetchAll();
 
-      return $tag_data;
+      return $panel_data;
     }
   }
 ?>

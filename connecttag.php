@@ -27,8 +27,6 @@
 
     $tag_data = json_decode($raw_data, true);
 
-    //die ($tag_data['raw_cooked'] . "");
-
     $query = "
       SELECT uid
       FROM tags
