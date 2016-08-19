@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `uid` int(11) NOT NULL,
   `pattern` int(11) NOT NULL,
   `controluid` int(11) NOT NULL,
-  `state` text NOT NULL,
+  `state` tinyint(1) NOT NULL,
   `last_activation_date` int(11) NOT NULL,
   `name` text DEFAULT NULL,
   `description` text DEFAULT NULL,

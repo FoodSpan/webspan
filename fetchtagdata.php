@@ -14,8 +14,8 @@
       FROM panels, tags
       WHERE accountid = :accountid
       AND panels.uid = controluid
+      AND state = 1
       ";
-      //TODO ADD STATE
 
       $query_params = array(
         ':accountid'=> $_SESSION['user']['id']
