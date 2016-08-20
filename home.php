@@ -12,32 +12,25 @@
     <?php include_once 'navbar.php' ?>
     <div class="main main-raised" style="padding-top:100px;">
       <div class="container">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="content">
-                <h1>Welcome Back <b><?php echo $_SESSION['user']['name']?></b></h1>
-                <h2>It's <b><span id="date"></span>.</b></h2>
-                <h2>Here's what's up.</h2>
-                <h3><b>1</b> Active Control Panels</h3>
-                <h3><b>25</b> Active Tags</h3>
-                <div class="text-center">
-                  <h3><a href="panels.php">Settings</a></h3>
-                </div>
-              </div>
-            </div>
+        <div class="card">
+          <div class="content">
+            <h1>Hey <b><?php echo $_SESSION['user']['name']?></b> <small>It's <b><span id="date"></span>.</b></small></h1>
           </div>
-          <div class="col-sm-6">
-            <div class="card">
-              <img class="img-responsive" src="img/control-panel.png" style="max-width:50%;margin-left: auto;margin-right: auto;">
-              <div class="content">
+        </div>
+        <div class="card">
+          <div class="content">
+            <div class="row">
+              <div class="col-sm-4">
+                <img class="img-responsive" src="img/control-panel.png">
+              </div>
+              <div class="col-sm-8">
                 <h1>Control Panel <b>#1</b></h1>
                 <h3><b>25</b> Active Tags</h3>
                 <h3><b>3</b> Tags <span class="text-warning">Spoiling Soon</span></h3>
-                <div class="text-center">
-                  <h3><a href="panels.php">View Control Panels</a></h3>
-                </div>
               </div>
+            </div>
+            <div class="text-center">
+              <h3><a href="panels.php">View Control Panels</a></h3>
             </div>
           </div>
         </div>

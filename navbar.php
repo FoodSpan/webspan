@@ -50,7 +50,7 @@
               <li><a href="panels.php">Control Panels</a></li>
               <li><a href="tags.php">Tags</a></li>
               <li class="divider"></li>
-              <li><a href="#">Settings</a></li>
+              <li><a href="settings.php">Settings</a></li>
               <li class="divider"></li>
               <li><a href="logout.php">Logout</a></li>
             </ul>
