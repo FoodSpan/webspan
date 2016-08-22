@@ -22,7 +22,64 @@
             <div class="card">
               <div class="content">
                 <div class="row">
-                  <div class="col-sm-4">
+                  <?php
+                  //TODO fix card shifting
+                  //get tag data
+                  include_once("fetchtagdata.php");
+                  $tag_data = fetchTagData(false, null);
+                  for ($i = 0; $i < count($tag_data); $i++){
+                    echo "<div class=\"col-sm-4\">
+                            <div class=\"card card-product\">
+                              <div class=\"content\">
+                                <a data-toggle=\"collapse\" href=\"#tag-detail-" . ($i+1) . "\" aria-expanded=\"false\" aria-controls=\"tag-detail-" . ($i+1) . "\">";
+                    //TODO get picture
+                    echo "<img class=\"img-responsive\" src=\"img/tag.png\" alt=\"Tag Image\" style=\"max-width:50%;margin-left: auto;margin-right: auto;\"/>";
+                    echo "</a>";
+                    echo "<div class=\"text-center\">";
+                    echo "<h2>" . $tag_data[$i]['name'] . "</h2>";
+                    //calculate state based upon expiry date
+                    if ($tag_data[$i]['expiry_date'] > 0){ //if expiry date entered
+                      $compare_date = $tag_data[$i]['expiry_date'];
+
+                    } else { //if expiry date not entered
+                      //TODO get food lifespan from database, add number to check-in date to get compare date
+                    }
+                    if (time() > $compare_date){
+                      $text_color = "danger";
+                      $text = "Spoiled";
+                    } else if (($compare_date - time()) < 259200){
+                      $text_color = "warning";
+                      $text = "Spoiling Soon";
+                    } else {
+                      $text_color = "success";
+                      $text = "Fresh";
+                    }
+                    echo "<h3 class=\"text-" . $text_color . "\">" . $text . "</h3>";
+                    echo "<a data-toggle=\"collapse\" href=\"#tag-detail-" . ($i+1) . "\" aria-expanded=\"false\" aria-controls=\"tag-detail-" . ($i+1) . "\">
+                        More Information <i class=\"material-icons\">keyboard_arrow_down</i>
+                        </a>
+                        <div class=\"collapse\" id=\"tag-detail-" . ($i+1) . "\">";
+                        //TODO FIX DAY CALCULATION
+                        $days = ceil(($compare_date - time())/86400);
+                        echo "<h3>Spoiling in: <br> <b>" . $days . " Day" . ($days > 1 ? "s":"") . "</b></h3>";
+                        echo "<h4>" . $tag_data[$i]['category'] . "</h4>";
+                        if (!$tag_data[$i]['fridge_freezer']){
+                          $text_color = "info";
+                          $text = "Refrigerated";
+                        } else {
+                          $text_color = "primary";
+                          $text = "Frozen";
+                        }
+                        echo "<h4 class=\"text-" . $text_color . "\">" . $text . "</h4>";
+                        echo "<p>" . $tag_data[$i]['description'] . "</p>";
+                    echo "</div>
+                            </div>
+                              </div>
+                                </div>
+                                  </div>";
+                  }
+                  ?>
+                  <!--<div class="col-sm-4">
                     <div class="card card-product">
                       <div class="content">
                         <a data-toggle="collapse" href="#tag-detail-1" aria-expanded="false" aria-controls="tag-detail-1">
@@ -87,7 +144,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>-->
                 </div>
               </div>
             </div>
@@ -108,7 +165,49 @@
                       <th>Expiry Date</th>
                     </thead>
                     <tbody>
-                      <tr>
+                      <?php
+                        //get tag data
+                        include_once("fetchtagdata.php");
+                        $tag_data = fetchTagData(false, null);
+                        echo "<tr>";
+                        for ($i = 0; $i < count($tag_data); $i++){
+                          //TODO find image of tag based on id
+                          echo "<th><img class=\"img-responsive\" src=\"img/tag.png\" alt=\"Tag Image\" style=\"max-width:50%;margin-left: auto;margin-right: auto;\"/></a></th>";
+                          echo "<th>" . $tag_data[$i]['name'] . "</th>";
+                          //calculate state based upon expiry date
+                          if ($tag_data[$i]['expiry_date'] > 0){ //if expiry date entered
+                            $compare_date = $tag_data[$i]['expiry_date'];
+
+                          } else { //if expiry date not entered
+                            //TODO get food lifespan from database, add number to check-in date to get compare date
+                          }
+                          if (time() > $compare_date){
+                            $text_color = "danger";
+                            $text = "Spoiled";
+                          } else if (($compare_date - time()) < 259200){
+                            $text_color = "warning";
+                            $text = "Spoiling Soon";
+                          } else {
+                            $text_color = "success";
+                            $text = "Fresh";
+                          }
+                          echo "<th><span class=\"text-" . $text_color . "\">" . $text . "</span></th>";
+                          echo "<th>" . date('Y/m/d', $tag_data[$i]['last_activation_date']) . "</th>";
+                          echo "<th>" . $tag_data[$i]['description'] . "</th>";
+                          echo "<th>" . $tag_data[$i]['category'] . "</th>";
+                          if (!$tag_data[$i]['fridge_freezer']){
+                            $text_color = "info";
+                            $text = "Refrigerated";
+                          } else {
+                            $text_color = "primary";
+                            $text = "Frozen";
+                          }
+                          echo "<th><span class=\"text-" . $text_color . "\">" . $text . "</span></th>";
+                          echo "<th>" . date('Y/m/d', $tag_data[$i]['expiry_date']) . "</th>";
+                          echo "</tr>";
+                        }
+                      ?>
+                      <!--<tr>
                         <th><img class="img-responsive" src="img/tag.png" alt="Tag Image" style="max-width:50%;margin-left: auto;margin-right: auto;"/></a></th>
                         <th>Chicken</th>
                         <th><span class="text-success">Fresh</span></th>
@@ -137,7 +236,7 @@
                         <th>Produce</th>
                         <th><span class="text-info">Refrigerated</span></th>
                         <th>2016/08/11</th>
-                      </tr>
+                      </tr>-->
                     </tbody>
                   </table>
                 </div>
