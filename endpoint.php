@@ -60,13 +60,3 @@
     }
   }
 ?>
-
-<!DOCTYPE html>
-<html>
-  <body>
-    <form class="form" method="post" action="?">
-      <input type="text" placeholder="request" name="request" id="request" required="">
-      <input type="submit">
-    </form>
-  <body>
-</html>
