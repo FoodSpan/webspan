@@ -33,22 +33,28 @@
       if (!$user_info){
         die ("bad_credentials");
       } else {
-        //TODO get all functions to return success/failure if called from endpoint
         if ($request['function'] == "login"){ //get user information
           die (json_encode($user_info));
 
-        } else if ($request['function'] == "get_panels"){
+        } else if ($request['function'] == "get_default"){//get panel and tag data
+          include_once('fetchpaneldata.php');
+          include_once('fetchtagdata.php');
+          $panel_data = fetchPanelData(true, $user_info['id']);
+          $tag_data = fetchTagData(true, $user_info['id']);
+          die ("{\"panel\":" . json_encode($panel_data) . ", \"tag\":" . json_encode($tag_data) . "}");
+
+        } else if ($request['function'] == "get_panels"){//get panel data
           include_once('fetchpaneldata.php');
           $panel_data = fetchPanelData(true, $user_info['id']);
           die (json_encode($panel_data));
 
-        } else if ($request['function'] == "get_tags_user"){
+        } else if ($request['function'] == "get_tags_user"){//get tag data
           include_once('fetchtagdata.php');
           $tag_data = fetchTagData(true, $user_info['id']);
           die (json_encode($tag_data));
 
         } else if ($request['function'] == "get_tags_cp"){
-
+          //TODO send data to Arduino
         }
       }
     }
