@@ -57,7 +57,10 @@
         if($login_ok)
         {
           unset($row['salt']);
-          unset($row['password']);
+
+					if (!$is_endpoint){
+          	unset($row['password']);
+					}
 
           $_SESSION['user'] = $row;
 

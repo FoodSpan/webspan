@@ -34,7 +34,7 @@
         die ("bad_credentials");
       } else {
         if ($request['function'] == "login"){ //get user information
-          die (json_encode($user_info));
+          die ($user_info['password']);
 
         } else if ($request['function'] == "get_default"){//get panel and tag data
           include_once('fetchpaneldata.php');
@@ -60,3 +60,13 @@
     }
   }
 ?>
+
+<!DOCTYPE html>
+<html>
+  <body>
+    <form class="form" method="post" action="?">
+      <input type="text" placeholder="request" name="request" id="request" required="">
+      <input type="submit">
+    </form>
+  <body>
+</html>
