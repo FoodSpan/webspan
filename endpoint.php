@@ -28,7 +28,11 @@
 
       include_once("back_login.php");
 
-      $user_info = login(true, $request['email'], $request['password']);
+      if ($request['parameter'] == "hashed"){
+        $user_info = login(true, true, $request['email'], $request['password']);
+      } else {
+        $user_info = login(true, false, $request['email'], $request['password']);
+      }
 
       if (!$user_info){
         die ("bad_credentials");

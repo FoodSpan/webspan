@@ -1,6 +1,6 @@
 <?php require 'common.php'; ?>
 <?php
-	function login($is_endpoint, $eEmail, $ePassword){
+	function login($is_endpoint, $is_hashed, $eEmail, $ePassword){
 
       $submitted_email = '';
       $correction = 'none';
@@ -38,15 +38,20 @@
         $row = $stmt->fetch();
         if($row)
         {
-          if ($is_endpoint){
+          if ($is_endpoint && !$is_hashed){
             $check_password = hash('sha256', $ePassword . $row['salt']);
-          } else {
+          } else if ($is_endpoint && $is_hashed){
+						$check_password = $ePassword;
+					} else {
             $check_password = hash('sha256', $_POST['password'] . $row['salt']);
           }
-          for($round = 0; $round < 65536; $round++)
-          {
-            $check_password = hash('sha256', $check_password . $row['salt']);
-          }
+
+					if (!$is_hashed){
+	          for($round = 0; $round < 65536; $round++)
+	          {
+	            $check_password = hash('sha256', $check_password . $row['salt']);
+	          }
+					}
 
           if($check_password === $row['password'])
           {
