@@ -1,4 +1,4 @@
-<nav class="navbar navbar-rose navbar-fixed-top">
+<nav class="navbar navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-container" aria-expanded="false">
@@ -31,7 +31,7 @@
       <ul class="nav navbar-nav navbar-right">
         <?php if(empty($_SESSION['user'])) { ?>
           <li>
-            <a href="register.php" class="btn btn-success btn-raised btn-round">
+            <a href="register.php" class="btn btn-white btn-raised btn-round">
               Register
             </a>
           </li>
