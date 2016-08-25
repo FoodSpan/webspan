@@ -1,20 +1,40 @@
 <?php require 'common.php'; ?>
 <?php
-  if (!(empty($_POST))){
+
+  if (isset($_SERVER['HTTP_ORIGIN'])) {
+      header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+      header('Access-Control-Allow-Credentials: true');
+      header('Access-Control-Max-Age: 86400');    // cache for 1 day
+  }
+
+  // Access-Control headers are received during OPTIONS requests
+  if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+
+      if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+          header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+
+      if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+          header("Access-Control-Allow-Headers:        {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+
+      exit(0);
+  }
+
+  $postdata = file_get_contents("php://input");
+
+  if (isset($postdata)){
     /*post in JSON format:
       {
         "email":"a@a.com",
         "password":"aaaaaa",
-        "function":"blank",
+        "a_function":"blank",
         "parameter":"whatever"
       }
     */
 
-    $request = $_POST['request'];
-    $request = json_decode($request, true);
+    $request = json_decode($postdata, true);
 
     //if registering
-    if ($request['function'] == "register"){
+    if ($request['a_function'] == "register"){
 
       include_once('back_register.php');
 
@@ -37,27 +57,28 @@
       if (!$user_info){
         die ("bad_credentials");
       } else {
-        if ($request['function'] == "login"){ //get user information
-          die ($user_info['password']);
+        if ($request['a_function'] == "login"){ //get user information
+          die ("{\"password\": \"" . $user_info['password'] . "\",
+            \"name\": \"" . $user_info['name'] . "\"}");
 
-        } else if ($request['function'] == "get_default"){//get panel and tag data
+        } else if ($request['a_function'] == "get_default"){//get panel and tag data
           include_once('fetchpaneldata.php');
           include_once('fetchtagdata.php');
           $panel_data = fetchPanelData(true, $user_info['id']);
           $tag_data = fetchTagData(true, $user_info['id']);
           die ("{\"panel\":" . json_encode($panel_data) . ", \"tag\":" . json_encode($tag_data) . "}");
 
-        } else if ($request['function'] == "get_panels"){//get panel data
+        } else if ($request['a_function'] == "get_panels"){//get panel data
           include_once('fetchpaneldata.php');
           $panel_data = fetchPanelData(true, $user_info['id']);
           die (json_encode($panel_data));
 
-        } else if ($request['function'] == "get_tags_user"){//get tag data
+        } else if ($request['a_function'] == "get_tags_user"){//get tag data
           include_once('fetchtagdata.php');
           $tag_data = fetchTagData(true, $user_info['id']);
           die (json_encode($tag_data));
 
-        } else if ($request['function'] == "get_tags_cp"){
+        } else if ($request['a_function'] == "get_tags_cp"){
           //TODO send data to Arduino
         }
       }

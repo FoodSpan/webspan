@@ -28,6 +28,9 @@
                   include_once("fetchtagdata.php");
                   $tag_data = fetchTagData(false, null);
                   for ($i = 0; $i < count($tag_data); $i++){
+                    if (($i+1) % 3 == 0){
+                      echo "<div class=\"row\">";
+                    }
                     echo "<div class=\"col-sm-4\">
                             <div class=\"card card-product\">
                               <div class=\"content\">
@@ -77,6 +80,9 @@
                               </div>
                                 </div>
                                   </div>";
+                    if (($i+1) % 3 == 0){
+                      echo "</div>";
+                    }
                   }
                   ?>
                   <!--<div class="col-sm-4">
