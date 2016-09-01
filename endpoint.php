@@ -21,7 +21,10 @@
 
   $postdata = file_get_contents("php://input");
 
+  //$postdata = $_POST['request'];
+
   if (isset($postdata)){
+
     /*post in JSON format:
       {
         "email":"a@a.com",
@@ -33,8 +36,17 @@
 
     $request = json_decode($postdata, true);
 
+    include_once('connecttag.php');
+
+    if ($request['a_function'] == "add_tag"){
+      if (connectTag($request['parameter'])){
+        die ('addtag - success');
+      } else {
+        die('addtag - failure');
+      }
+    }
     //if registering
-    if ($request['a_function'] == "register"){
+    else if ($request['a_function'] == "register"){
 
       include_once('back_register.php');
 
@@ -78,7 +90,14 @@
           $tag_data = fetchTagData(true, $user_info['id']);
           die (json_encode($tag_data));
 
-        } else if ($request['a_function'] == "get_tags_cp"){
+        } else if ($request['a_function'] == "reg_panel"){
+          include_once('back_connectpanel.php');
+          if(connectPanel(true, $request['parameter'])){
+            die ("success");
+          } else {
+            die ("fail");
+          }
+        }else if ($request['a_function'] == "get_tags_cp"){
           //TODO send data to Arduino
         }
       }

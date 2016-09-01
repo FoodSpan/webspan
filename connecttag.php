@@ -1,13 +1,6 @@
 <?php require 'common.php'; ?>
 <?php
-  if(empty($_SESSION['user'])) {
-    header("Location: login.php");
-		die("Redirecting to login.php");
-  }
-?>
-<?php
-  if (!(empty($_POST))){
-
+  function connectTag($eTagData){
     require 'common.php';
 
     //get json data from arduino
@@ -23,9 +16,34 @@
       "fridge_freezer": (FRIDGE_FREEZER)
     } where () is replaced with value */
 
-    $raw_data = $_POST['tag_data'];
+    $raw_data = $eTagData;
+    //$raw_data = $_POST['tagData'];
 
     $tag_data = json_decode($raw_data, true);
+
+    $query = "
+      SELECT uid
+      FROM panels
+      WHERE alpha_uid = :alpha_uid
+    ";
+
+    $query_params = array(
+      ':alpha_uid' => $tag_data['controluid']
+    );
+
+    try
+    {
+      $stmt = $db->prepare($query);
+      $result = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to run query: " . $ex->getMessage());
+    }
+
+    $data = $stmt->fetchAll();
+
+    $controlId = $data[0]['uid'];
 
     $query = "
       SELECT uid
@@ -50,7 +68,7 @@
     $query_params = array(
       ':uid' => $tag_data['uid'],
       ':pattern' => $tag_data['pattern'],
-      ':controluid' => $tag_data['controluid'],
+      ':controluid' => $controlId,
       ':state' => $tag_data['state'],
       ':last_activation_date' => time(),
       ':category' => $tag_data['category'],
@@ -76,7 +94,10 @@
       catch(PDOException $ex)
       {
         die("Failed to run query: " . $ex->getMessage());
+        return false;
       }
+
+      return true;
 
     } else {//found match, update existing tag information
 
@@ -99,18 +120,20 @@
       }
       catch(PDOException $ex)
       {
+        return false;
         die("Failed to run query: " . $ex->getMessage());
       }
+      return true;
     }
   }
 ?>
-
+<!--
 <!DOCTYPE html>
 <html>
   <body>
     <form class="form" method="post" action="?">
-      <input type="text" placeholder="tag_data" name="tag_data" id="tag_data" required="">
+      <input type="text" placeholder="request" name="tagData" id="tagData" required="">
       <input type="submit">
     </form>
   <body>
-</html>
+</html>-->

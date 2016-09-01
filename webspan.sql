@@ -30,6 +30,7 @@ USE `webspan`;
 
 CREATE TABLE `panels` (
   `uid` int(11) NOT NULL,
+  `alpha_uid` varchar(11) NOT NULL,
   `accountid` int(11) DEFAULT NULL,
   `version` text NOT NULL,
   `name` text,
@@ -76,7 +77,8 @@ CREATE TABLE `users` (
 -- Indexes for table `panels`
 --
 ALTER TABLE `panels`
-  ADD PRIMARY KEY (`uid`);
+  ADD PRIMARY KEY (`uid`),
+  ADD KEY `alpha_uid` (`alpha_uid`);
 
 --
 -- Indexes for table `tags`
