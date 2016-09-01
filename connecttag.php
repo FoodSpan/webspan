@@ -127,13 +127,3 @@
     }
   }
 ?>
-<!--
-<!DOCTYPE html>
-<html>
-  <body>
-    <form class="form" method="post" action="?">
-      <input type="text" placeholder="request" name="tagData" id="tagData" required="">
-      <input type="submit">
-    </form>
-  <body>
-</html>-->
