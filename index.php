@@ -47,17 +47,35 @@
           <div class="col-sm-6">
             <div class="card">
               <div class="content">
-                <h1>Webspan</h1>
+                <h1>WebSpan</h1>
                 <p class="lead">
                   Part of the FoodSpan family, WebSpan allows you to access your FoodSpan fridge anywhere: know what's been tagged, what tags are spoiling, and more awesome features on your laptop, phone, or tablet. Plus, WebSpan is free to use, and is supported with updates to keep it fresh.
                 </p>
-                <a href="register.php" class="btn btn-white btn-raised btn-round">
+                <a href="register.php" class="btn btn-success btn-raised btn-round">
                   Register
-                </a> <a href="login.php" class="btn btn-white btn-raised btn-round">
+                </a> <a href="login.php" class="btn btn-success btn-raised btn-round">
                   Login
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="content">
+                <h1>FoodSpan</h1>
+                <p class="lead">
+                  FoodSpan works in your kitchen to help you save food, time, and money, simply by swiping and attaching a tag. Not only does your leftover spaghetti not become a science experiment, but you can save hundreds of dollars every year! Plus, FoodSpan is always available using our suite of web and mobile applications, so you always know what's fresh in your fridge.
+                </p>
+                <a href="https://foodspan.ca" class="btn btn-success btn-raised btn-round">
+                  Learn More
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <img class="img-responsive" src="img/logo.png" alt="FoodSpan Logo"/>
           </div>
         </div>
       </div>
