@@ -21,142 +21,140 @@
           <div role="tabpanel" class="tab-pane active" id="card">
             <div class="card">
               <div class="content">
-                <div class="row">
-                  <?php
-                  //TODO fix card shifting
-                  //get tag data
-                  include_once("fetchtagdata.php");
-                  $tag_data = fetchTagData(false, null);
-                  for ($i = 0; $i < count($tag_data); $i++){
-                    if (($i+1) % 3 == 0){
-                      echo "<div class=\"row\">";
-                    }
-                    echo "<div class=\"col-sm-4\">
-                            <div class=\"card card-product\">
-                              <div class=\"content\">
-                                <a data-toggle=\"collapse\" href=\"#tag-detail-" . ($i+1) . "\" aria-expanded=\"false\" aria-controls=\"tag-detail-" . ($i+1) . "\">";
-                    //TODO get picture
-                    echo "<img class=\"img-responsive\" src=\"img/tags/" . $tag_data[$i]['pattern'] . ".png\" alt=\"Tag Image\" style=\"max-width:50%;margin-left: auto;margin-right: auto;\"/>";
-                    echo "</a>";
-                    echo "<div class=\"text-center\">";
-                    echo "<h2>" . $tag_data[$i]['name'] . "</h2>";
-                    //calculate state based upon expiry date
-                    if ($tag_data[$i]['expiry_date'] > 0){ //if expiry date entered
-                      $compare_date = $tag_data[$i]['expiry_date'];
+                <?php
+                //TODO fix card shifting
+                //get tag data
+                include_once("fetchtagdata.php");
+                $tag_data = fetchTagData(false, null);
+                for ($i = 0; $i < count($tag_data); $i++){
+                  if (($i+1) % 3 == 0){
+                    echo "<div class=\"row\">";
+                  }
+                  echo "<div class=\"col-sm-4\">
+                          <div class=\"card card-product\">
+                            <div class=\"content\">
+                              <a data-toggle=\"collapse\" href=\"#tag-detail-" . ($i+1) . "\" aria-expanded=\"false\" aria-controls=\"tag-detail-" . ($i+1) . "\">";
+                  //TODO get picture
+                  echo "<img class=\"img-responsive\" src=\"img/tags/" . $tag_data[$i]['pattern'] . ".png\" alt=\"Tag Image\" style=\"max-width:50%;margin-left: auto;margin-right: auto;\"/>";
+                  echo "</a>";
+                  echo "<div class=\"text-center\">";
+                  echo "<h2>" . $tag_data[$i]['name'] . "</h2>";
+                  //calculate state based upon expiry date
+                  if ($tag_data[$i]['expiry_date'] > 0){ //if expiry date entered
+                    $compare_date = $tag_data[$i]['expiry_date'];
 
-                    } else { //if expiry date not entered
-                      //TODO get food lifespan from database, add number to check-in date to get compare date
-                    }
-                    if (time() > $compare_date){
-                      $text_color = "danger";
-                      $text = "Spoiled";
-                    } else if (($compare_date - time()) < 259200){
-                      $text_color = "warning";
-                      $text = "Spoiling Soon";
-                    } else {
-                      $text_color = "success";
-                      $text = "Fresh";
-                    }
-                    echo "<h3 class=\"text-" . $text_color . "\">" . $text . "</h3>";
-                    echo "<a data-toggle=\"collapse\" href=\"#tag-detail-" . ($i+1) . "\" aria-expanded=\"false\" aria-controls=\"tag-detail-" . ($i+1) . "\">
-                        More Information <i class=\"material-icons\">keyboard_arrow_down</i>
-                        </a>
-                        <div class=\"collapse\" id=\"tag-detail-" . ($i+1) . "\">";
-                    // Day Calculation Code Block
-                    $days = ceil(($compare_date - time())/86400);
-                    if ($days >= 0){
-                      echo "<h3>Spoiling in: <br> <b>" . $days . " Day" . ($days > 1 ? "s":"") . "</b></h3>";
-                    }
-                    else{
-                      echo "<h3 class=\"text-danger\">Spoiled for ". $days * -1 . " Day" . ($days < -1 ? "s":"") . "</h3>";
-                    }
-                    echo "<h4>" . $tag_data[$i]['category'] . "</h4>";
-                    if (!$tag_data[$i]['fridge_freezer']){
-                      $text_color = "info";
-                      $text = "Refrigerated";
-                    } else {
-                      $text_color = "primary";
-                      $text = "Frozen";
-                    }
-                    echo "<h4 class=\"text-" . $text_color . "\">" . $text . "</h4>";
-                    echo "<p>" . $tag_data[$i]['description'] . "</p>";
-                    echo "</div>
+                  } else { //if expiry date not entered
+                    //TODO get food lifespan from database, add number to check-in date to get compare date
+                  }
+                  if (time() > $compare_date){
+                    $text_color = "danger";
+                    $text = "Spoiled";
+                  } else if (($compare_date - time()) < 259200){
+                    $text_color = "warning";
+                    $text = "Spoiling Soon";
+                  } else {
+                    $text_color = "success";
+                    $text = "Fresh";
+                  }
+                  echo "<h3 class=\"text-" . $text_color . "\">" . $text . "</h3>";
+                  echo "<a data-toggle=\"collapse\" href=\"#tag-detail-" . ($i+1) . "\" aria-expanded=\"false\" aria-controls=\"tag-detail-" . ($i+1) . "\">
+                      More Information <i class=\"material-icons\">keyboard_arrow_down</i>
+                      </a>
+                      <div class=\"collapse\" id=\"tag-detail-" . ($i+1) . "\">";
+                  // Day Calculation Code Block
+                  $days = ceil(($compare_date - time())/86400);
+                  if ($days >= 0){
+                    echo "<h3>Spoiling in: <br> <b>" . $days . " Day" . ($days > 1 ? "s":"") . "</b></h3>";
+                  }
+                  else{
+                    echo "<h3 class=\"text-danger\">Spoiled for ". $days * -1 . " Day" . ($days < -1 ? "s":"") . "</h3>";
+                  }
+                  echo "<h4>" . $tag_data[$i]['category'] . "</h4>";
+                  if (!$tag_data[$i]['fridge_freezer']){
+                    $text_color = "info";
+                    $text = "Refrigerated";
+                  } else {
+                    $text_color = "primary";
+                    $text = "Frozen";
+                  }
+                  echo "<h4 class=\"text-" . $text_color . "\">" . $text . "</h4>";
+                  echo "<p>" . $tag_data[$i]['description'] . "</p>";
+                  echo "</div>
+                          </div>
                             </div>
                               </div>
-                                </div>
-                                  </div>";
-                    if (($i+1) % 3 == 0){
-                      echo "</div>";
-                    }
+                                </div>";
+                  if (($i+1) % 3 == 0){
+                    echo "</div>";
                   }
-                  ?>
-                  <!--<div class="col-sm-4">
-                    <div class="card card-product">
-                      <div class="content">
+                }
+                ?>
+                <!--<div class="col-sm-4">
+                  <div class="card card-product">
+                    <div class="content">
+                      <a data-toggle="collapse" href="#tag-detail-1" aria-expanded="false" aria-controls="tag-detail-1">
+                        <img class="img-responsive" src="img/tag.png" alt="Tag Image" style="max-width:50%;margin-left: auto;margin-right: auto;"/>
+                      </a>
+                      <div class="text-center">
+                        <h2>Chicken</h2>
+                        <h3 class="text-success">Fresh</h3>
                         <a data-toggle="collapse" href="#tag-detail-1" aria-expanded="false" aria-controls="tag-detail-1">
-                          <img class="img-responsive" src="img/tag.png" alt="Tag Image" style="max-width:50%;margin-left: auto;margin-right: auto;"/>
+                          More Information <i class="material-icons">keyboard_arrow_down</i>
                         </a>
-                        <div class="text-center">
-                          <h2>Chicken</h2>
-                          <h3 class="text-success">Fresh</h3>
-                          <a data-toggle="collapse" href="#tag-detail-1" aria-expanded="false" aria-controls="tag-detail-1">
-                            More Information <i class="material-icons">keyboard_arrow_down</i>
-                          </a>
-                          <div class="collapse" id="tag-detail-1">
-                            <h3>Spoiling in: <b>2 Days</b></h3>
-                            <h4>Raw Meat</h4>
-                            <h4 class="text-info">Refrigerated</h4>
-                            <p>Chicken Breast from Longos</p>
-                         </div>
-                        </div>
+                        <div class="collapse" id="tag-detail-1">
+                          <h3>Spoiling in: <b>2 Days</b></h3>
+                          <h4>Raw Meat</h4>
+                          <h4 class="text-info">Refrigerated</h4>
+                          <p>Chicken Breast from Longos</p>
+                       </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="card card-product">
-                      <div class="content">
-                        <a data-toggle="collapse" href="#tag-detail-2" aria-expanded="false" aria-controls="tag-detail-2">
-                          <img class="img-responsive" src="img/tag.png" alt="Tag Image" style="max-width:50%;margin-left: auto;margin-right: auto;"/>
-                        </a>
-                        <div class="text-center">
-                          <h2>Potatoes</h2>
-                          <h3 class="text-danger">Spoiled</h3>
-                          <a data-toggle="collapse" href="#tag-detail-2" aria-expanded="false" aria-controls="tag-detail-2">
-                            More Information <i class="material-icons">keyboard_arrow_down</i>
-                          </a>
-                          <div class="collapse" id="tag-detail-2">
-                            <h3 class="text-danger">Spoiled for <b>1 Day</b></h3>
-                            <h4>Produce</h4>
-                            <h4 class="text-info">Refrigerated</h4>
-                            <p>Yukon Gold Potatoes from Costco</p>
-                         </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card card-product">
-                      <div class="content">
-                        <a data-toggle="collapse" href="#tag-detail-3" aria-expanded="false" aria-controls="tag-detail-3">
-                          <img class="img-responsive" src="img/tag.png" alt="Tag Image" style="max-width:50%;margin-left: auto;margin-right: auto;"/>
-                        </a>
-                        <div class="text-center">
-                          <h2>Carrot</h2>
-                          <h3 class="text-warning">Spoiling Soon</h3>
-                          <a data-toggle="collapse" href="#tag-detail-3" aria-expanded="false" aria-controls="tag-detail-3">
-                            More Information <i class="material-icons">keyboard_arrow_down</i>
-                          </a>
-                          <div class="collapse" id="tag-detail-3">
-                            <h3>Spoiling in: <b>1 Day</b></h3>
-                            <h4>Produce</h4>
-                            <h4 class="text-info">Refrigerated</h4>
-                            <p>Carrots from Farmers Market</p>
-                         </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>-->
                 </div>
+                <div class="col-sm-4">
+                  <div class="card card-product">
+                    <div class="content">
+                      <a data-toggle="collapse" href="#tag-detail-2" aria-expanded="false" aria-controls="tag-detail-2">
+                        <img class="img-responsive" src="img/tag.png" alt="Tag Image" style="max-width:50%;margin-left: auto;margin-right: auto;"/>
+                      </a>
+                      <div class="text-center">
+                        <h2>Potatoes</h2>
+                        <h3 class="text-danger">Spoiled</h3>
+                        <a data-toggle="collapse" href="#tag-detail-2" aria-expanded="false" aria-controls="tag-detail-2">
+                          More Information <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                        <div class="collapse" id="tag-detail-2">
+                          <h3 class="text-danger">Spoiled for <b>1 Day</b></h3>
+                          <h4>Produce</h4>
+                          <h4 class="text-info">Refrigerated</h4>
+                          <p>Yukon Gold Potatoes from Costco</p>
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card card-product">
+                    <div class="content">
+                      <a data-toggle="collapse" href="#tag-detail-3" aria-expanded="false" aria-controls="tag-detail-3">
+                        <img class="img-responsive" src="img/tag.png" alt="Tag Image" style="max-width:50%;margin-left: auto;margin-right: auto;"/>
+                      </a>
+                      <div class="text-center">
+                        <h2>Carrot</h2>
+                        <h3 class="text-warning">Spoiling Soon</h3>
+                        <a data-toggle="collapse" href="#tag-detail-3" aria-expanded="false" aria-controls="tag-detail-3">
+                          More Information <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                        <div class="collapse" id="tag-detail-3">
+                          <h3>Spoiling in: <b>1 Day</b></h3>
+                          <h4>Produce</h4>
+                          <h4 class="text-info">Refrigerated</h4>
+                          <p>Carrots from Farmers Market</p>
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>-->
               </div>
             </div>
           </div>
