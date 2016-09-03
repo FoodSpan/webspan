@@ -34,7 +34,6 @@
                           <div class=\"card card-product\">
                             <div class=\"content\">
                               <a data-toggle=\"collapse\" href=\"#tag-detail-" . ($i+1) . "\" aria-expanded=\"false\" aria-controls=\"tag-detail-" . ($i+1) . "\">";
-                  //TODO get picture
                   echo "<img class=\"img-responsive\" src=\"img/tags/" . $tag_data[$i]['pattern'] . ".png\" alt=\"Tag Image\" style=\"max-width:50%;margin-left: auto;margin-right: auto;\"/>";
                   echo "</a>";
                   echo "<div class=\"text-center\">";
@@ -180,7 +179,6 @@
                         $tag_data = fetchTagData(false, null);
                         echo "<tr>";
                         for ($i = 0; $i < count($tag_data); $i++){
-                          //TODO find image of tag based on id
                           echo "<th><img class=\"img-responsive\" src=\"img/tags/" . $tag_data[$i]['pattern'] . ".png\" alt=\"Tag Image\" style=\"max-width:25%;margin-left: auto;margin-right: auto;\"/></a></th>";
                           echo "<th>" . $tag_data[$i]['name'] . "</th>";
                           //calculate state based upon expiry date
