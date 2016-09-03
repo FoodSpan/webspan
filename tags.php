@@ -36,7 +36,7 @@
                               <div class=\"content\">
                                 <a data-toggle=\"collapse\" href=\"#tag-detail-" . ($i+1) . "\" aria-expanded=\"false\" aria-controls=\"tag-detail-" . ($i+1) . "\">";
                     //TODO get picture
-                    echo "<img class=\"img-responsive\" src=\"img/tag.png\" alt=\"Tag Image\" style=\"max-width:50%;margin-left: auto;margin-right: auto;\"/>";
+                    echo "<img class=\"img-responsive\" src=\"img/tags/" . $tag_data[$i]['pattern'] . ".png\" alt=\"Tag Image\" style=\"max-width:50%;margin-left: auto;margin-right: auto;\"/>";
                     echo "</a>";
                     echo "<div class=\"text-center\">";
                     echo "<h2>" . $tag_data[$i]['name'] . "</h2>";
@@ -62,19 +62,24 @@
                         More Information <i class=\"material-icons\">keyboard_arrow_down</i>
                         </a>
                         <div class=\"collapse\" id=\"tag-detail-" . ($i+1) . "\">";
-                        //TODO FIX DAY CALCULATION
-                        $days = ceil(($compare_date - time())/86400);
-                        echo "<h3>Spoiling in: <br> <b>" . $days . " Day" . ($days > 1 ? "s":"") . "</b></h3>";
-                        echo "<h4>" . $tag_data[$i]['category'] . "</h4>";
-                        if (!$tag_data[$i]['fridge_freezer']){
-                          $text_color = "info";
-                          $text = "Refrigerated";
-                        } else {
-                          $text_color = "primary";
-                          $text = "Frozen";
-                        }
-                        echo "<h4 class=\"text-" . $text_color . "\">" . $text . "</h4>";
-                        echo "<p>" . $tag_data[$i]['description'] . "</p>";
+                    // Day Calculation Code Block
+                    $days = ceil(($compare_date - time())/86400);
+                    if ($days >= 0){
+                      echo "<h3>Spoiling in: <br> <b>" . $days . " Day" . ($days > 1 ? "s":"") . "</b></h3>";
+                    }
+                    else{
+                      echo "<h3 class=\"text-danger\">Spoiled for ". $days * -1 . " Day" . ($days < -1 ? "s":"") . "</h3>";
+                    }
+                    echo "<h4>" . $tag_data[$i]['category'] . "</h4>";
+                    if (!$tag_data[$i]['fridge_freezer']){
+                      $text_color = "info";
+                      $text = "Refrigerated";
+                    } else {
+                      $text_color = "primary";
+                      $text = "Frozen";
+                    }
+                    echo "<h4 class=\"text-" . $text_color . "\">" . $text . "</h4>";
+                    echo "<p>" . $tag_data[$i]['description'] . "</p>";
                     echo "</div>
                             </div>
                               </div>
@@ -178,7 +183,7 @@
                         echo "<tr>";
                         for ($i = 0; $i < count($tag_data); $i++){
                           //TODO find image of tag based on id
-                          echo "<th><img class=\"img-responsive\" src=\"img/tag.png\" alt=\"Tag Image\" style=\"max-width:50%;margin-left: auto;margin-right: auto;\"/></a></th>";
+                          echo "<th><img class=\"img-responsive\" src=\"img/tags/" . $tag_data[$i]['pattern'] . ".png\" alt=\"Tag Image\" style=\"max-width:25%;margin-left: auto;margin-right: auto;\"/></a></th>";
                           echo "<th>" . $tag_data[$i]['name'] . "</th>";
                           //calculate state based upon expiry date
                           if ($tag_data[$i]['expiry_date'] > 0){ //if expiry date entered
@@ -199,7 +204,12 @@
                           }
                           echo "<th><span class=\"text-" . $text_color . "\">" . $text . "</span></th>";
                           echo "<th>" . date('Y/m/d', $tag_data[$i]['last_activation_date']) . "</th>";
-                          echo "<th>" . $tag_data[$i]['description'] . "</th>";
+                          if ($tag_data[$i]['description']){
+                            echo "<th>" . $tag_data[$i]['description'] . "</th>";
+                          }
+                          else{
+                            echo "<th>No Description Available.</th>";
+                          }
                           echo "<th>" . $tag_data[$i]['category'] . "</th>";
                           if (!$tag_data[$i]['fridge_freezer']){
                             $text_color = "info";
