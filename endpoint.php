@@ -60,7 +60,7 @@
 
       include_once("back_login.php");
 
-      if ($request['parameter'] == "hashed"){
+      if ($request['a_function'] != "login"){
         $user_info = login(true, true, $request['email'], $request['password']);
       } else {
         $user_info = login(true, false, $request['email'], $request['password']);
@@ -97,7 +97,14 @@
           } else {
             die ("fail");
           }
-        }else if ($request['a_function'] == "get_tags_cp"){
+        } else if ($request['a_function'] == "edit_tag"){
+          include_once('back_edittag.php');
+          if(editTag(true, $user_info['id'], $request['parameter'])){
+            die ("success");
+          } else {
+            die ("fail");
+          }
+        } else if ($request['a_function'] == "get_tags_cp"){
           //TODO send data to Arduino
         }
       }

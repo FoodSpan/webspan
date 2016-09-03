@@ -1,15 +1,6 @@
 <?php require 'common.php'; ?>
 <?php
-  if(empty($_SESSION['user'])) {
-    header("Location: login.php");
-		die("Redirecting to login.php");
-  }
-?>
-<?php
 	function connectPanel($is_endpoint, $eUid){
-
-		if (!(empty($_POST))){
-	    if (!(empty($_SESSION['user']))){
 
 	      require 'common.php';
 
@@ -54,9 +45,7 @@
           header("Location: home.php");
         }
       }
-		}
-  }
-  if (!empty($_POST)){
+  if (!empty($_POST) && !(empty($_SESSION['user']))){
     connectPanel(false, null);
   }
 ?>
