@@ -1,27 +1,68 @@
 <?php require 'common.php'; ?>
 <?php
-	function connectPanel($is_endpoint, $eUid){
+	function connectPanel($is_endpoint, $email, $ePanelData){
 
-	      require 'common.php';
+	  require 'common.php';
+
+		$panelData = JSON_decode($ePanelData);
+
+		$query = "
+		SELECT accountid
+		FROM panels
+		WHERE alpha_uid = :uid";
+
+		if ($is_endpoint){
+			$uid = $panelData->alphaId;
+		} else {
+			$uid = $_POST['uid'];
+		}
+
+		$query_params = array(
+			':uid' => $uid,
+		);
+
+		try
+		{
+			$stmt = $db->prepare($query);
+			$result = $stmt->execute($query_params);
+
+			$row = $stmt->fetch();
+
+			if ($row['accountid'] != null){
+				die ('wreaf');
+				return false;
+			}
+		}
+		catch(PDOException $ex)
+		{
+			die("Failed to run query: " . $ex->getMessage());
+		}
+
+		if ($is_endpoint){
+			$name = $panelData->name;
+			$description = $panelData->description;
+		} else {
+			$email = $_SESSION['user']["email"];
+			$name = $_POST['name'];
+			$description = $_POST['description'];
+		}
+
+		$query_params = array(
+			':uid' => $uid,
+			':email' => $email,
+			':name' =>  $name,
+			':description' => $description
+		);
 
 	      $query = "
 	      UPDATE panels
 	      SET accountid = (
 	        SELECT id
 	        FROM users
-	        WHERE email = :email)
+	        WHERE email = :email),
+					name = :name,
+					description = :description
 	      WHERE alpha_uid = :uid";
-
-        if ($is_endpoint){
-          $uid = $eUid;
-        } else {
-          $uid = $_POST['uid'];
-        }
-
-        $query_params = array(
-          ':uid' => $uid,
-          ':email' => $_SESSION['user']["email"]
-        );
 
         try
         {

@@ -92,14 +92,14 @@
 
         } else if ($request['a_function'] == "reg_panel"){
           include_once('back_connectpanel.php');
-          if(connectPanel(true, $request['parameter'])){
+          if(connectPanel(true, $request['email'], $request['parameter'])){
             die ("success");
           } else {
             die ("fail");
           }
         } else if ($request['a_function'] == "edit_tag"){
           include_once('back_edittag.php');
-          if(editTag(true, $user_info['id'], $request['parameter'])){
+          if(editTag(true, $user_info['id'],  $request['parameter'])){
             die ("success");
           } else {
             die ("fail");
