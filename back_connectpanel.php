@@ -29,7 +29,6 @@
 			$row = $stmt->fetch();
 
 			if ($row['accountid'] != null){
-				die ('wreaf');
 				return false;
 			}
 		}
