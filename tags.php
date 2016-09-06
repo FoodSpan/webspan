@@ -282,25 +282,31 @@
 	            	<option value="dairy (solid)">Solid Dairy</option>
 	            	<option value="other">Other</option>
 			        </select>
-        			<div class="radio">
-    						<label>
-    							<input type="radio" name="rf" id="frozen" value="frozen" /> Frozen
-    						</label>
-    					</div>
-        	 		<div class="radio">
-    						<label>
-    							<input type="radio" name="rf" id="refrigerated" value="refrigerated" /> Refrigerated
-    						</label>
-    					</div>
-              <div class="radio">
-                <label>
-                  <input type="radio" name="rc" id="cooked" value="cooked" /> Cooked
-                </label>
-              </div>
-              <div class="radio">
-                <label>
-                  <input type="radio" name="rc" id="raw" value="raw" /> Raw
-                </label>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="radio">
+        						<label>
+        							<input type="radio" name="rf" id="frozen" value="frozen" /> Frozen
+        						</label>
+        					</div>
+            	 		<div class="radio">
+        						<label>
+        							<input type="radio" name="rf" id="refrigerated" value="refrigerated" /> Refrigerated
+        						</label>
+        					</div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="rc" id="cooked" value="cooked" /> Cooked
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="rc" id="raw" value="raw" /> Raw
+                    </label>
+                  </div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="tagDescription" class="control-label">Tag Description</label>
