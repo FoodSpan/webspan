@@ -65,6 +65,8 @@
       die("Failed to run query: " . $ex->getMessage());
     }
 
+    include_once 'getexpirydate.php';
+
     $query_params = array(
       ':uid' => $tag_data['uid'],
       ':pattern' => $tag_data['pattern'],
@@ -73,7 +75,8 @@
       ':last_activation_date' => time(),
       ':category' => $tag_data['category'],
       ':raw_cooked' => $tag_data['raw_cooked'],
-      ':fridge_freezer' => $tag_data['fridge_freezer']
+      ':fridge_freezer' => $tag_data['fridge_freezer'],
+      ':expiry_date' => getExpiryDate($tag_data['category'], $tag_data['raw_cooked'], $tag_data['fridge_freezer'])
     );
 
     //no match, add tag as new entry
@@ -81,9 +84,9 @@
 
       $query = "
         INSERT INTO tags
-        (uid, pattern, controluid, state, last_activation_date, category, raw_cooked, fridge_freezer)
+        (uid, pattern, controluid, state, last_activation_date, category, raw_cooked, fridge_freezer, expiry_date)
         VALUES
-        (:uid, :pattern, :controluid, :state, :last_activation_date, :category, :raw_cooked, :fridge_freezer)
+        (:uid, :pattern, :controluid, :state, :last_activation_date, :category, :raw_cooked, :fridge_freezer, :expiry_date)
       ";
 
       try
@@ -109,7 +112,8 @@
           last_activation_date = :last_activation_date,
           category = :category,
           raw_cooked = :raw_cooked,
-          fridge_freezer = :fridge_freezer
+          fridge_freezer = :fridge_freezer,
+          expiry_date = :expiry_date
         WHERE uid = :uid
       ";
 

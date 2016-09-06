@@ -70,6 +70,55 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
+-- Table structure for table `expiry_by_category`
+--
+
+CREATE TABLE `expiry_by_category` (
+  `id` int(11) NOT NULL,
+  `category` text NOT NULL,
+  `raw_cooked` tinyint(1) NOT NULL,
+  `fridge_freezer` tinyint(1) NOT NULL,
+  `span_seconds` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `expiry_by_category`
+--
+
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('meat', 0, 0, 345600);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('meat', 0, 1, 12960000);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('meat', 1, 0, 259200);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('meat', 1, 1, 5184000);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('dairy (solid)', 0, 0, 5184000);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('dairy (solid)', 0, 1, 15552000);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('dairy (solid)', 1, 0, 5184000);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('dairy (solid)', 1, 1, 15552000);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('dairy (liquid)', 0, 0, 1209600);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('dairy (liquid)', 0, 1, 2592000);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('dairy (liquid)', 1, 0, 1209600);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('dairy (liquid)', 1, 1, 2592000);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('produce', 0, 0, 1209600);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('produce', 0, 1, 20736000);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('produce', 1, 0, 259200);
+INSERT INTO `expiry_by_category` (`category`, `raw_cooked`, `fridge_freezer`, `span_seconds`) VALUES
+('produce', 1, 1, 31104000);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -95,6 +144,13 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `expiry_by_category`
+--
+ALTER TABLE `expiry_by_category`
+  ADD PRIMARY KEY (`id`);
+
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -103,6 +159,15 @@ ALTER TABLE `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+--
+-- AUTO_INCREMENT for table `expiry_by_category`
+--
+ALTER TABLE `expiry_by_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

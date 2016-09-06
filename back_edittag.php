@@ -5,8 +5,6 @@
 
     $tagData = json_decode($eTagData);
 
-    //die (var_dump($tagData));
-
     $query = "
       UPDATE tags INNER JOIN panels, users
       SET tags.name = :name,
@@ -21,6 +19,13 @@
       AND panels.accountid = :userid
     ";
 
+    if ($tagData->expiry_date == null || $tagData->expiry_date == ''){
+      include_once 'getexpirydate.php';
+      $expiry_date = getExpiryDate($tagData->category, $tagData->raw_cooked, $tagData->fridge_freezer);
+    } else {
+      $expiry_date = $tagData->expiry_date;
+    }
+
     if ($is_endpoint){
       $query_params = array(
         ':userid' => $eId,
@@ -31,7 +36,7 @@
         ':category' => $tagData->category,
         ':raw_cooked' => $tagData->raw_cooked,
         ':fridge_freezer' => $tagData->fridge_freezer,
-        ':expiry_date' => $tagData->expiry_date
+        ':expiry_date' => $expiry_date
       );
     } else {
       //TODO POST online stuff
