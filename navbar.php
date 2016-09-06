@@ -31,12 +31,12 @@
       <ul class="nav navbar-nav navbar-right">
         <?php if(empty($_SESSION['user'])) { ?>
           <li>
-            <a href="register.php" class="btn btn-white btn-raised btn-round">
+            <a href="register.php" class="btn btn-success btn-raised btn-round">
               Register
             </a>
           </li>
           <li>
-            <a href="login.php" class="btn btn-white btn-raised btn-round">
+            <a href="login.php" class="btn btn-success btn-raised btn-round">
               Login
             </a>
           </li>
