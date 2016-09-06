@@ -7,6 +7,57 @@
 ?>
 <!DOCTYPE html>
 <html>
+  <head>
+    <script>
+      var ID;
+      function clickEditTag(id){
+        ID = id;
+      }
+
+      function editTag(){
+
+        params = {
+          id:ID,
+          name:document.getElementById("tagName").value,
+          description:document.getElementById("tagDescription").value,
+          state:1,
+          category:document.getElementById("tagCategory").value,
+          raw_cooked:((document.getElementById("cooked").checked)?1:0),
+          fridge_freezer:((document.getElementById("frozen").checked)?1:0),
+          expiry_date:(new Date(document.getElementById("tagExpiry").value)).getTime()/1000
+
+        };
+
+        post("back_edittag.php", params , "post")
+
+
+      }
+
+      function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+         }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+    </script>
+  </head>
   <?php include_once 'header.html' ?>
   <body>
     <?php include_once 'navbar.php' ?>
@@ -78,6 +129,9 @@
                   }
                   echo "<h4 class=\"text-" . $text_color . "\">" . $text . "</h4>";
                   echo "<p>" . $tag_data[$i]['description'] . "</p>";
+                  echo "<button type=\"button\" id=\"" . $tag_data[$i]['uid'] . "\" class=\"btn btn-primary btn-lg\" data-toggle=\"modal\" data-target=\"#editTagsModal\" onclick=\"clickEditTag(this.id);\">
+                        Edit
+                      </button>";
                   echo "</div>
                           </div>
                             </div>
@@ -88,72 +142,6 @@
                   }
                 }
                 ?>
-                <!--<div class="col-sm-4">
-                  <div class="card card-product">
-                    <div class="content">
-                      <a data-toggle="collapse" href="#tag-detail-1" aria-expanded="false" aria-controls="tag-detail-1">
-                        <img class="img-responsive" src="img/tag.png" alt="Tag Image" style="max-width:50%;margin-left: auto;margin-right: auto;"/>
-                      </a>
-                      <div class="text-center">
-                        <h2>Chicken</h2>
-                        <h3 class="text-success">Fresh</h3>
-                        <a data-toggle="collapse" href="#tag-detail-1" aria-expanded="false" aria-controls="tag-detail-1">
-                          More Information <i class="material-icons">keyboard_arrow_down</i>
-                        </a>
-                        <div class="collapse" id="tag-detail-1">
-                          <h3>Spoiling in: <b>2 Days</b></h3>
-                          <h4>Raw Meat</h4>
-                          <h4 class="text-info">Refrigerated</h4>
-                          <p>Chicken Breast from Longos</p>
-                       </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card card-product">
-                    <div class="content">
-                      <a data-toggle="collapse" href="#tag-detail-2" aria-expanded="false" aria-controls="tag-detail-2">
-                        <img class="img-responsive" src="img/tag.png" alt="Tag Image" style="max-width:50%;margin-left: auto;margin-right: auto;"/>
-                      </a>
-                      <div class="text-center">
-                        <h2>Potatoes</h2>
-                        <h3 class="text-danger">Spoiled</h3>
-                        <a data-toggle="collapse" href="#tag-detail-2" aria-expanded="false" aria-controls="tag-detail-2">
-                          More Information <i class="material-icons">keyboard_arrow_down</i>
-                        </a>
-                        <div class="collapse" id="tag-detail-2">
-                          <h3 class="text-danger">Spoiled for <b>1 Day</b></h3>
-                          <h4>Produce</h4>
-                          <h4 class="text-info">Refrigerated</h4>
-                          <p>Yukon Gold Potatoes from Costco</p>
-                       </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card card-product">
-                    <div class="content">
-                      <a data-toggle="collapse" href="#tag-detail-3" aria-expanded="false" aria-controls="tag-detail-3">
-                        <img class="img-responsive" src="img/tag.png" alt="Tag Image" style="max-width:50%;margin-left: auto;margin-right: auto;"/>
-                      </a>
-                      <div class="text-center">
-                        <h2>Carrot</h2>
-                        <h3 class="text-warning">Spoiling Soon</h3>
-                        <a data-toggle="collapse" href="#tag-detail-3" aria-expanded="false" aria-controls="tag-detail-3">
-                          More Information <i class="material-icons">keyboard_arrow_down</i>
-                        </a>
-                        <div class="collapse" id="tag-detail-3">
-                          <h3>Spoiling in: <b>1 Day</b></h3>
-                          <h4>Produce</h4>
-                          <h4 class="text-info">Refrigerated</h4>
-                          <p>Carrots from Farmers Market</p>
-                       </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>-->
               </div>
             </div>
           </div>
@@ -171,6 +159,7 @@
                       <th>Category</th>
                       <th>Stored</th>
                       <th>Expiry Date</th>
+                      <th></th>
                     </thead>
                     <tbody>
                       <?php
@@ -216,8 +205,14 @@
                           }
                           echo "<th><span class=\"text-" . $text_color . "\">" . $text . "</span></th>";
                           echo "<th>" . date('Y/m/d', $tag_data[$i]['expiry_date']) . "</th>";
+                          echo "<th>";
+                          echo "<button type=\"button\" id=\"" . $tag_data[$i]['uid'] . "\" data-toggle=\"modal\" data-target=\"#editTagsModal\" onclick=\"clickEditTag(this.id);\">
+                                Edit
+                              </button>";
+                          echo "</th>";
                           echo "</tr>";
                         }
+
                       ?>
                       <!--<tr>
                         <th><img class="img-responsive" src="img/tag.png" alt="Tag Image" style="max-width:50%;margin-left: auto;margin-right: auto;"/></a></th>
@@ -259,5 +254,71 @@
       </div>
     </div>
     <?php include_once 'footer.html' ?>
+    <!--MODAL-->
+    <div class="modal fade" id="editTagsModal" tabindex="-1" role="dialog" aria-labelledby="editTagsModalLabel" aria-hidden="true">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+    					<i class="material-icons">clear</i>
+    				</button>
+    				<h4 class="modal-title" id="editTagsModalLabel">Edit Tag <b><span id="modal-header"></span></b></h4>
+    			</div>
+    			<div class="modal-body">
+    				<form>
+    			          	<div class="form-group">
+    			            		<label for="tagName" class="control-label">Tag Nickname</label>
+    			        	  	<input type="text" class="form-control" id="tagName">
+    					</div>
+    					<div class="form-group">
+    						<label class="control-label">Datepicker</label>
+    						<input id="tagExpiry" type="text" class="datepicker form-control" value="03/12/2016" />
+    					</div>
+    	          			<select id="tagCategory" class="select form-control" placeholder="Choose Tag Food Category">
+    				        	<option disabled selected class="disabled"> Choose Tag Food Category</option>
+    				            	<option value="produce">Produce </option>
+    				            	<option value="meat">Meat</option>
+    				            	<option value="dairy (liquid)">Liquid Dairy</option>
+    				            	<option value="dairy (solid)">Solid Dairy</option>
+    				            	<option value="other">Other</option>
+    				        </select>
+                    <div>
+    	          			<div class="radio">
+    						<label>
+    							<input type="radio" name="rf" id="frozen" value="frozen"> Frozen
+    						</label>
+    					</div>
+    	        	 		<div class="radio">
+    						<label>
+    							<input type="radio" name="rf" id="refrigerated" value="refrigerated"> Refrigerated
+    						</label>
+    					</div>
+            </div>
+            <div>
+              <div class="radio">
+        <label>
+          <input type="radio" name="rc" id="cooked" value="cooked"> Cooked
+        </label>
+      </div>
+            <div class="radio">
+        <label>
+          <input type="radio" name="rc" id="raw" value="raw"> Raw
+        </label>
+      </div>
+    </div>
+    	          			<div class="form-group">
+    	            				<label for="tagDescription" class="control-label">Tag Description</label>
+    	            				<textarea class="form-control" rows="1"  id="tagDescription"></textarea>
+    	          			</div>
+            			</form>
+    			</div>
+    			<div class="modal-footer">
+    				<button type="button" class="btn btn-danger btn-simple" data-dismiss="modal">Cancel</button>
+    	       			<button type="button" class="btn btn-success btn-simple" onclick="editTag()">Submit</button>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <!--END MODAL-->
   </body>
 </html>

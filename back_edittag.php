@@ -19,11 +19,13 @@
       AND panels.accountid = :userid
     ";
 
-    if ($tagData->expiry_date == null || $tagData->expiry_date == ''){
-      include_once 'getexpirydate.php';
-      $expiry_date = getExpiryDate($tagData->category, $tagData->raw_cooked, $tagData->fridge_freezer);
-    } else {
-      $expiry_date = $tagData->expiry_date;
+    if ($is_endpoint){
+      if ($tagData->expiry_date == null || $tagData->expiry_date == ''){
+        include_once 'getexpirydate.php';
+        $expiry_date = getExpiryDate($tagData->category, $tagData->raw_cooked, $tagData->fridge_freezer);
+      } else {
+        $expiry_date = $tagData->expiry_date;
+      }
     }
 
     if ($is_endpoint){
@@ -39,13 +41,24 @@
         ':expiry_date' => $expiry_date
       );
     } else {
-      //TODO POST online stuff
+      $query_params = array(
+        ':userid' => $_SESSION['user']['id'],
+        ':uid' => $_POST['id'],
+        ':name' => $_POST['name'],
+        ':description' => $_POST['description'],
+        ':state' => $_POST['state'],
+        ':category' => $_POST['category'],
+        ':raw_cooked' => $_POST['raw_cooked'],
+        ':fridge_freezer' => $_POST['fridge_freezer'],
+        ':expiry_date' => $_POST['expiry_date']
+      );
     }
 
     include 'common.php';
 
     try
     {
+
       $stmt = $db->prepare($query);
       $result = $stmt->execute($query_params);
       if ($is_endpoint){
@@ -61,5 +74,10 @@
     }
 
     return true;
+  }
+
+  if (!empty($_POST)){
+    editTag(false, null, null);
+    header("Location: tags.php");
   }
 ?>
