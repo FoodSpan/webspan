@@ -206,7 +206,7 @@
                           echo "<th><span class=\"text-" . $text_color . "\">" . $text . "</span></th>";
                           echo "<th>" . date('Y/m/d', $tag_data[$i]['expiry_date']) . "</th>";
                           echo "<th>";
-                          echo "<button type=\"button\" id=\"" . $tag_data[$i]['uid'] . "\" data-toggle=\"modal\" data-target=\"#editTagsModal\" onclick=\"clickEditTag(this.id);\">
+                          echo "<button class=\"btn btn-primary btn-lg\" type=\"button\" id=\"" . $tag_data[$i]['uid'] . "\" data-toggle=\"modal\" data-target=\"#editTagsModal\" onclick=\"clickEditTag(this.id);\">
                                 Edit
                               </button>";
                           echo "</th>";
@@ -266,58 +266,54 @@
     			</div>
     			<div class="modal-body">
     				<form>
-    			          	<div class="form-group">
-    			            		<label for="tagName" class="control-label">Tag Nickname</label>
-    			        	  	<input type="text" class="form-control" id="tagName">
+            	<div class="form-group">
+            		<label for="tagName" class="control-label">Tag Nickname</label>
+          	  	<input type="text" class="form-control" id="tagName" />
     					</div>
     					<div class="form-group">
     						<label class="control-label">Datepicker</label>
     						<input id="tagExpiry" type="text" class="datepicker form-control" value="03/12/2016" />
     					</div>
-    	          			<select id="tagCategory" class="select form-control" placeholder="Choose Tag Food Category">
-    				        	<option disabled selected class="disabled"> Choose Tag Food Category</option>
-    				            	<option value="produce">Produce </option>
-    				            	<option value="meat">Meat</option>
-    				            	<option value="dairy (liquid)">Liquid Dairy</option>
-    				            	<option value="dairy (solid)">Solid Dairy</option>
-    				            	<option value="other">Other</option>
-    				        </select>
-                    <div>
-    	          			<div class="radio">
+        			<select id="tagCategory" class="select form-control" placeholder="Choose Tag Food Category">
+	        	    <option disabled selected class="disabled"> Choose Tag Food Category</option>
+	            	<option value="produce">Produce </option>
+	            	<option value="meat">Meat</option>
+	            	<option value="dairy (liquid)">Liquid Dairy</option>
+	            	<option value="dairy (solid)">Solid Dairy</option>
+	            	<option value="other">Other</option>
+			        </select>
+        			<div class="radio">
     						<label>
-    							<input type="radio" name="rf" id="frozen" value="frozen"> Frozen
+    							<input type="radio" name="rf" id="frozen" value="frozen" /> Frozen
     						</label>
     					</div>
-    	        	 		<div class="radio">
+        	 		<div class="radio">
     						<label>
-    							<input type="radio" name="rf" id="refrigerated" value="refrigerated"> Refrigerated
+    							<input type="radio" name="rf" id="refrigerated" value="refrigerated" /> Refrigerated
     						</label>
     					</div>
-            </div>
-            <div>
               <div class="radio">
-        <label>
-          <input type="radio" name="rc" id="cooked" value="cooked"> Cooked
-        </label>
+                <label>
+                  <input type="radio" name="rc" id="cooked" value="cooked" /> Cooked
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="rc" id="raw" value="raw" /> Raw
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="tagDescription" class="control-label">Tag Description</label>
+                <textarea class="form-control" rows="1"  id="tagDescription"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success btn-simple" onclick="editTag()">Submit</button>
+          </div>
+        </div>
       </div>
-            <div class="radio">
-        <label>
-          <input type="radio" name="rc" id="raw" value="raw"> Raw
-        </label>
-      </div>
-    </div>
-    	          			<div class="form-group">
-    	            				<label for="tagDescription" class="control-label">Tag Description</label>
-    	            				<textarea class="form-control" rows="1"  id="tagDescription"></textarea>
-    	          			</div>
-            			</form>
-    			</div>
-    			<div class="modal-footer">
-    				<button type="button" class="btn btn-danger btn-simple" data-dismiss="modal">Cancel</button>
-    	       			<button type="button" class="btn btn-success btn-simple" onclick="editTag()">Submit</button>
-    			</div>
-    		</div>
-    	</div>
     </div>
     <!--END MODAL-->
   </body>
