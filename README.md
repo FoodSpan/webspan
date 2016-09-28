@@ -1,6 +1,6 @@
 # WebSpan
 
-WebSpan is a companion app to [FoodSpan](http://matthewwang.me/foodspan/). This repository contains the code for the WebSpan Web Application, as well as a setup script to make your own backend database.
+WebSpan is a companion app to [FoodSpan](https://foodspan.ca/). This repository contains the code for the WebSpan Web Application, as well as a setup script to make your own backend database.
 
 This web application is still a huge work-in-progress, and is definitely not production ready! As such, be wary using our code/software, as it might be super buggy. If it is, please let us know on our issues tracker!
 
