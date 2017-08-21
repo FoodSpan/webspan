@@ -16,16 +16,16 @@
           <a href="https://foodspan.github.io/foodspan-app/">About</a>
         </li>
         <li>
-          <a href="https://foodspan.ca/">FoodSpan</a>
+          <a href="https://https://foodspan.github.io/">FoodSpan</a>
         </li>
         <li>
           <a href="https://foodspan.github.io/foodspan-app/">Mobile App</a>
         </li>
         <li>
-          <a href="https://foodspan.ca/shop/">Shop</a>
+          <a href="https://https://foodspan.github.io/shop/">Shop</a>
         </li>
         <li>
-          <a href="https://foodspan.ca/contact/">Contact Us</a>
+          <a href="https://https://foodspan.github.io/contact/">Contact Us</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

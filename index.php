@@ -62,7 +62,7 @@
             <p class="lead">
               FoodSpan works in your kitchen to help you save food, time, and money, simply by swiping and attaching a tag. Not only does your leftover spaghetti not become a science experiment, but you can save hundreds of dollars every year! Plus, FoodSpan is always available using our suite of web and mobile applications, so you always know what's fresh in your fridge.
             </p>
-            <a href="https://foodspan.ca" class="btn btn-success btn-raised btn-round">
+            <a href="https://foodspan.github.io" class="btn btn-success btn-raised btn-round">
               Learn More
             </a>
           </div>
